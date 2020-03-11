@@ -1,4 +1,5 @@
 import tensorflow.compat.v1 as tf
+from google.protobuf import text_format
 tf.disable_v2_behavior()
 tf.enable_resource_variables()
 tf.enable_eager_execution()
@@ -83,7 +84,8 @@ class TFNet(object):
 	def build_from_pb(self):
 		with tf.gfile.GFile(self.FLAGS.pbLoad, "rb") as f:
 			graph_def = tf.GraphDef()
-			graph_def.ParseFromString(f.read())
+			text_format.Merge(f.read(), graph_def)
+			#graph_def.ParseFromString(f.read())
 		
 		tf.import_graph_def(graph_def,	name="")
 		with open(self.FLAGS.metaLoad, 'r') as fp:
