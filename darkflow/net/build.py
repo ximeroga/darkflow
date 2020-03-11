@@ -1,5 +1,7 @@
 import tensorflow.compat.v1 as tf
 tf.disable_v2_behavior()
+tf.enable_resource_variables()
+tf.enable_eager_execution()
 import time
 from . import help
 from . import flow
